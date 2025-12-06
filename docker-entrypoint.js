@@ -5,12 +5,7 @@ const { spawn } = require('node:child_process')
 const env = { ...process.env }
 
 ;(async() => {
-  // If running the web server then build the app
-  if (process.argv.slice(-3).join(' ') === 'npm run start') {
-    await exec('npx next build')
-  }
-
-  // launch application
+  // launch application (app is already built in Dockerfile)
   await exec(process.argv.slice(2).join(' '))
 })()
 
