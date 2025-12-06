@@ -13,7 +13,7 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
   const pathname = usePathname()
   const [songsMenuOpen, setSongsMenuOpen] = useState(false)
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false)
-  const hamburgerRef = useRef<HTMLDivElement>(null)
+  const hamburgerRef = useRef<HTMLLIElement>(null)
 
   const isActive = (path: string) => pathname === path
 
