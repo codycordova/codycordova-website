@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Cody Cordova\'s Shop',
     description: 'Purchase music and merch from Cody Cordova\'s store.',
-    images: ['http://www.codycordova.com/uploads/9/7/2/8/97282376/published/cody-2020-black-fill-png.png?1723694786'],
+    images: ['http://www.codycordova.com/uploads/9/7/2/8/97282376/published/cody-2020-black-fill-png.png'],
     url: 'http://www.codycordova.com/shop.html',
   },
 }

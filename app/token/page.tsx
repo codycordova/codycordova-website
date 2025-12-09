@@ -14,13 +14,13 @@ export default function Token() {
       <div className="container">
         <h2 className="wsite-content-title" style={{ textAlign: 'center' }}>What is a CODY Token?</h2>
 
-        <div className="wsite-image wsite-image-border-none" style={{ textAlign: 'center', padding: '10px 0' }}>
+        <div className="wsite-image wsite-image-border-none" style={{ textAlign: 'center', padding: '10px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Image
             src="/images/cclogo.png"
             alt="CODY CORDOVA Logo"
             width={400}
             height={400}
-            style={{ width: 'auto', maxWidth: '100%', height: 'auto' }}
+            style={{ width: 'auto', maxWidth: '100%', height: 'auto', margin: '0 auto' }}
           />
         </div>
 
@@ -49,10 +49,10 @@ export default function Token() {
         <hr className="styled-hr" style={{ width: '100%' }} />
         <div style={{ height: '20px', overflow: 'hidden', width: '100%' }}></div>
 
-        <div style={{ textAlign: 'center', width: '100%', overflowY: 'hidden' }}>
+        <div style={{ textAlign: 'center', width: '100%', overflowY: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <StellarExpertWidget
             src="https://stellar.expert/widget/public/asset/summary/CODY-GAW55YAX46HLIDRONLOLUWP672HTFXW5WWTEI2T7OXVEFEDE5UKQDJAK"
-            style={{ border: 'none', overflow: 'hidden', maxWidth: '100%', minWidth: '300px', maxHeight: '100%', minHeight: '200px', width: '50%' }}
+            style={{ border: 'none', overflow: 'hidden', maxWidth: '100%', minWidth: '300px', maxHeight: '100%', minHeight: '200px', width: '50%', margin: '0 auto' }}
           />
         </div>
 
@@ -60,10 +60,10 @@ export default function Token() {
         <hr className="styled-hr" style={{ width: '100%' }} />
         <div style={{ height: '20px', overflow: 'hidden', width: '100%' }}></div>
 
-        <div style={{ textAlign: 'center', width: '100%', overflowY: 'hidden' }}>
+        <div style={{ textAlign: 'center', width: '100%', overflowY: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <StellarExpertWidget
             src="https://stellar.expert/widget/public/asset/price/CODY-GAW55YAX46HLIDRONLOLUWP672HTFXW5WWTEI2T7OXVEFEDE5UKQDJAK"
-            style={{ border: 'none', overflow: 'hidden', maxWidth: '100%', minWidth: '300px', maxHeight: '100%', minHeight: '200px', width: '100%' }}
+            style={{ border: 'none', overflow: 'hidden', maxWidth: '100%', minWidth: '300px', maxHeight: '100%', minHeight: '200px', width: '100%', margin: '0 auto' }}
           />
         </div>
 

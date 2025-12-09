@@ -1,0 +1,6 @@
+---
+alwaysApply: true
+---
+Absolutely no hallucinating when recommending new code or fixing errors/mistakes in code. You can only make changes to code using OFFICIAL DOCUMENTATION. If you don't know you have permission to search the internet, and if you can't find anything of use you ask me for help before doing anything code related. Don't be shy to ask me for documentation, code refactoring help, etc. 
+
+Try to optimize and use the least amount of resources possible. Want a fully working application that won't break in two weeks because of updates or outdated tech. We want reliable, durable, built to last code and dependencies.

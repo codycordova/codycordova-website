@@ -38,7 +38,7 @@ export default function Affiliates() {
         <div className="wsite-image wsite-image-border-thin" style={{ textAlign: 'center', padding: '10px 0' }}>
           <Link href="https://lddy.no/1is2x" target="_blank" rel="noopener noreferrer">
             <Image
-              src="/images/editor/255637285.jpg?1702469506"
+              src="/images/editor/255637285.jpg"
               alt="Purblack Shilajit sponsored by Cody Cordova"
               width={406}
               height={406}
@@ -84,7 +84,7 @@ export default function Affiliates() {
         <div className="wsite-image wsite-image-border-none" style={{ textAlign: 'center', padding: '10px 0' }}>
           <Link href="http://www.AliveWaters.Com/discount/codycordova?redirect=%2F%3Fafmc%3Dcodycordova%26utm_campaign%3Dcodycordova%26utm_source%3Dleaddyno%26utm_medium%3Daffiliate" target="_blank" rel="noopener noreferrer">
             <Image
-              src="/images/published/508918372.jpg?1702469489"
+              src="/images/published/508918372.jpg"
               alt="Alive Waters"
               width={334}
               height={334}

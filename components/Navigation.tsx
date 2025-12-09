@@ -3,6 +3,23 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import { Menu } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface NavigationProps {
   mobileMenuOpen: boolean
@@ -11,9 +28,6 @@ interface NavigationProps {
 
 export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) {
   const pathname = usePathname()
-  const [songsMenuOpen, setSongsMenuOpen] = useState(false)
-  const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false)
-  const hamburgerRef = useRef<HTMLLIElement>(null)
 
   const isActive = (path: string) => pathname === path
 
@@ -33,7 +47,6 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
     { title: 'Kitty City', href: '/songs/kittycity' },
   ]
 
-  // Main navigation items (Home through Shop)
   const mainNavItems = [
     { title: 'Home', href: '/' },
     { title: 'EPK', href: '/epk' },
@@ -44,7 +57,6 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
     { title: 'Shop', href: '/shop' },
   ]
 
-  // Hamburger menu items (everything after Shop)
   const hamburgerNavItems = [
     { title: 'CODY Token', href: '/token' },
     { title: 'Contact Me', href: '/contactme' },
@@ -55,159 +67,153 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
     { title: '$Sox the Street Cat', href: '/soxthestreetcat' },
   ]
 
-  // Close hamburger menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (hamburgerRef.current && !hamburgerRef.current.contains(event.target as Node)) {
-        setHamburgerMenuOpen(false)
-      }
-    }
-
-    if (hamburgerMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [hamburgerMenuOpen])
+  const allNavItems = [...mainNavItems, ...hamburgerNavItems]
 
   return (
     <>
-      <nav className="nav desktop-nav">
-        <ul className="wsite-menu-default">
-          {/* Main navigation items (Home through Shop) */}
-          {mainNavItems.map((item) => (
-            <li
-              key={item.href}
-              className={`wsite-menu-item-wrap ${isActive(item.href) ? 'active' : ''}`}
-              onMouseEnter={() => item.hasSubmenu && setSongsMenuOpen(true)}
-              onMouseLeave={() => item.hasSubmenu && setSongsMenuOpen(false)}
-            >
-              {item.hasSubmenu ? (
-                <>
-                  <span className="wsite-menu-item">{item.title}</span>
-                  {songsMenuOpen && (
-                    <div className="wsite-menu-wrap">
-                      <ul className="wsite-menu">
+      {/* Desktop Navigation */}
+      <nav className="nav desktop-nav hidden md:flex">
+        <NavigationMenu>
+          <NavigationMenuList className="gap-2">
+            {mainNavItems.map((item) => (
+              <NavigationMenuItem key={item.href}>
+                {item.hasSubmenu ? (
+                  <>
+                    <NavigationMenuTrigger
+                      className={cn(
+                        'bg-black/40 backdrop-blur-md border border-white/10 rounded-lg hover:bg-white/10 text-foreground data-[state=open]:bg-white/10',
+                        isActive(item.href) && 'text-primary'
+                      )}
+                    >
+                      {item.title}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="left-0 !absolute">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                         {songsSubmenu.map((song) => (
-                          <li key={song.href} className="wsite-menu-subitem-wrap">
-                            <Link href={song.href} className="wsite-menu-subitem">
-                              <span className="wsite-menu-title">{song.title}</span>
-                            </Link>
+                          <li key={song.href}>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href={song.href}
+                                className={cn(
+                                  'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                                  isActive(song.href) && 'bg-accent text-accent-foreground'
+                                )}
+                              >
+                                <div className="text-sm font-medium leading-none">
+                                  {song.title}
+                                </div>
+                              </Link>
+                            </NavigationMenuLink>
                           </li>
                         ))}
                       </ul>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link href={item.href} className="wsite-menu-item">
-                  {item.title}
-                </Link>
-              )}
-            </li>
-          ))}
-          
-          {/* Hamburger menu button */}
-          <li className="wsite-menu-item-wrap hamburger-menu-wrap" ref={hamburgerRef}>
-            <button
-              className="wsite-menu-item hamburger-menu-button"
-              onClick={() => setHamburgerMenuOpen(!hamburgerMenuOpen)}
-              aria-label="More menu"
-              aria-expanded={hamburgerMenuOpen}
-            >
-              <span className="hamburger-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </button>
-            {hamburgerMenuOpen && (
-              <div className="wsite-menu-wrap hamburger-menu-dropdown">
-                <ul className="wsite-menu">
+                    </NavigationMenuContent>
+                  </>
+                ) : (
+                  <NavigationMenuLink asChild>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10 hover:text-foreground focus:bg-white/10 focus:text-foreground focus:outline-none',
+                        isActive(item.href) && 'text-primary'
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  </NavigationMenuLink>
+                )}
+              </NavigationMenuItem>
+            ))}
+            
+            {/* More Menu */}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-white/10 text-foreground data-[state=open]:bg-white/10">
+                More
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="left-0 !absolute">
+                <ul className="flex flex-col w-[200px] gap-3 p-4">
                   {hamburgerNavItems.map((item) => (
-                    <li key={item.href} className="wsite-menu-subitem-wrap">
-                      <Link 
-                        href={item.href} 
-                        className="wsite-menu-subitem"
-                        onClick={() => setHamburgerMenuOpen(false)}
-                      >
-                        <span className="wsite-menu-title">{item.title}</span>
-                      </Link>
+                    <li key={item.href}>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                            isActive(item.href) && 'bg-accent text-accent-foreground'
+                          )}
+                        >
+                          <div className="text-sm font-medium leading-none">
+                            {item.title}
+                          </div>
+                        </Link>
+                      </NavigationMenuLink>
                     </li>
                   ))}
                 </ul>
-              </div>
-            )}
-          </li>
-        </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </nav>
 
-      {/* Mobile Menu */}
-      <button
-        className="mobile-menu-toggle"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        aria-label="Toggle menu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      {mobileMenuOpen && (
-        <nav className="nav mobile-nav">
-          <ul className="wsite-menu-default">
-            {/* Main navigation items */}
-            {mainNavItems.map((item) => (
-              <li key={item.href}>
-                {item.hasSubmenu ? (
-                  <>
-                    <button
-                      onClick={() => setSongsMenuOpen(!songsMenuOpen)}
-                      className="wsite-menu-item"
-                    >
-                      {item.title}
-                    </button>
-                    {songsMenuOpen && (
-                      <ul className="wsite-menu">
+      {/* Mobile Navigation */}
+      <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+        <SheetTrigger asChild className="md:hidden">
+          <button
+            className="mobile-menu-toggle"
+            aria-label="Toggle menu"
+          >
+            <Menu className="h-6 w-6 text-foreground" />
+          </button>
+        </SheetTrigger>
+        <SheetContent side="right" className="w-[300px] bg-black/95 border-white/10">
+          <SheetHeader>
+            <SheetTitle className="text-foreground">Menu</SheetTitle>
+          </SheetHeader>
+          <nav className="mt-8">
+            <ul className="space-y-2">
+              {allNavItems.map((item) => (
+                <li key={item.href}>
+                  {'hasSubmenu' in item && item.hasSubmenu ? (
+                    <div className="space-y-2">
+                      <div className="text-sm font-medium text-foreground py-2">
+                        {item.title}
+                      </div>
+                      <ul className="pl-4 space-y-1">
                         {songsSubmenu.map((song) => (
                           <li key={song.href}>
-                            <Link href={song.href} className="wsite-menu-subitem">
+                            <Link
+                              href={song.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={cn(
+                                'block py-2 text-sm text-foreground/80 hover:text-foreground transition-colors',
+                                isActive(song.href) && 'text-primary'
+                              )}
+                            >
                               {song.title}
                             </Link>
                           </li>
                         ))}
                       </ul>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="wsite-menu-item"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.title}
-                  </Link>
-                )}
-              </li>
-            ))}
-            {/* Hamburger menu items */}
-            {hamburgerNavItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="wsite-menu-item"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        'block py-2 text-sm font-medium text-foreground hover:text-primary transition-colors',
+                        isActive(item.href) && 'text-primary'
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </SheetContent>
+      </Sheet>
     </>
   )
 }
-
